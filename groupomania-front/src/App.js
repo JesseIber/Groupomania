@@ -1,25 +1,25 @@
-import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Header from './components/Header';
 import Login from './components/Login'
-import useUser from './hooks/useUser';
-import './App.css';
+import './App.css'
+import { useState } from 'react'
+import UserContext from './contexts/UserContext'
+import { Route, Routes } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
+import Header from './components/Header'
 
 function App() {
-
-  const { user, setUser } = useUser()
-
-  if (!user) {
-    return <Login setUser={setUser} />
-  }
+  const [cookies] = useCookies()
+  const [user, setUser] = useState(cookies.token ? { token: cookies.token } : null)
   return (
-    <>
+    <UserContext.Provider value={{ user, setUser }}>
       <Header />
       <Routes>
-        <Route path="/" element={<Home user={user} />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/' element={<Home />} />
       </Routes>
-    </>
-  );
+    </UserContext.Provider>
+  )
+
 }
 
 export default App;

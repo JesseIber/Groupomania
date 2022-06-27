@@ -41,7 +41,7 @@ export default function Register({ toggle }) {
                 if (!res.ok) {
                     res.text().then((err) => setError(err))
                 } else {
-                    return console.log(res)
+                    toggle()
                 }
             })
             .catch(() => {
@@ -50,6 +50,7 @@ export default function Register({ toggle }) {
                 )
             })
     }
+
     return (
         <>
             {error && <div className="card-error">{error}</div>}

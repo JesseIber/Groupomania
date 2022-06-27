@@ -1,12 +1,14 @@
 import logo from '../../assets/img/logo.png'
 import Loader from '../../components/Loader'
-import { useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik'
 import Modal from '../../components/Modal'
 import useModal from '../../hooks/useModal'
 import RegisterComponent from '../../components/Register'
 import * as Yup from 'yup'
-import PropTypes from 'prop-types'
+import UserContext from '../../contexts/UserContext'
+import { useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -23,10 +25,19 @@ const initialValues = {
     password: '',
 }
 
-export default function Login({ setUser }) {
+export default function Login() {
+    const { user, setUser } = useContext(UserContext)
     const { isShowing, toggle } = useModal()
-    const [error, setError] = useState(null)
+    const [cookies, setCookie] = useCookies()
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (user !== null) {
+            navigate('/')
+        }
+    }, [user])
 
     const handleSubmit = (credentials) => {
         setLoading(true)
@@ -42,11 +53,19 @@ export default function Login({ setUser }) {
                         (err) => setError(JSON.parse(err)['message']),
                         setLoading(false)
                     )
-                } else {
-                    res.text().then((data) => setUser(JSON.parse(data)))
                 }
+                return res.json()
             })
-            .catch(() => {
+            .then((data) => {
+                setCookie('token', data.token)
+                setUser({
+                    userId: data.userId,
+                    token: data.token,
+                })
+                navigate('/')
+            })
+            .catch((err) => {
+                console.log(err)
                 setError(
                     'Une erreur est survenue, veuillez réessayer ultérieurement.'
                 )
@@ -128,8 +147,4 @@ export default function Login({ setUser }) {
             </Modal>
         </div>
     )
-}
-
-Login.propTypes = {
-    setUser: PropTypes.func.isRequired,
 }
