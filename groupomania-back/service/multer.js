@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, callback) => {
         const fullName =
-            "sauce_" + uuid4().replace(/-/g, "") +
+            "post_" + uuid4().replace(/-/g, "") +
             path.extname(file.originalname);
         callback(null, fullName);
     }

@@ -10,8 +10,12 @@ export default function Header() {
     const { user, setUser } = useContext(UserContext)
 
     function handleLogout() {
-        removeCookie('token')
         setUser(null)
+        removeCookie('user')
+    }
+
+    if (!user) {
+        return
     }
 
     return (

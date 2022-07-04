@@ -8,6 +8,7 @@ const authenticateJWT = (req, res, next) => {
 
         jwt.verify(token, process.env.API_SECRET, (err, user) => {
             if (err) {
+                console.log(err)
                 return res.sendStatus(403);
             }
             req.user = user;

@@ -9,6 +9,7 @@ import * as Yup from 'yup'
 import UserContext from '../../contexts/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
+import axios from 'axios'
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -57,7 +58,7 @@ export default function Login() {
                 return res.json()
             })
             .then((data) => {
-                setCookie('token', data.token)
+                setCookie('user', data)
                 setUser({
                     userId: data.userId,
                     token: data.token,

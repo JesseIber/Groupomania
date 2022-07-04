@@ -1,17 +1,19 @@
 import { useContext } from 'react'
-import AddPost from '../../components/AddPost'
-import Posts from '../../components/Posts'
 import UserContext from '../../contexts/UserContext'
+import { Navigate } from 'react-router-dom'
+import WritePost from '../../components/WritePost'
+import Posts from '../../components/Posts'
 
 export default function Home() {
     const { user } = useContext(UserContext)
-    console.log(user)
+
+    if (!user) {
+        return <Navigate to={'/login'} replace />
+    }
     return (
-        <div className="posts_container">
-            {/* <AddPost />
-            <Posts /> */}
-            {!user && <h1>Non connecté</h1>}
-            {user && <h1>Connecté, token : {user.token}</h1>}
+        <div className="post_container">
+            <WritePost />
+            <Posts />
         </div>
     )
 }

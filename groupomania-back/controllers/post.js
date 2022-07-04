@@ -27,11 +27,10 @@ exports.getPostById = async (req, res) => {
 
 exports.add = async (req, res) => {
     try {
-        const bodyPost = JSON.parse(req.body.post);
         const post = new Post({
-            userId: bodyPost['userId'],
-            content: bodyPost['content'],
-            imageUrl: req.file.filename == null ? '' : "http://localhost:3000/uploads/" + req.file.filename,
+            userId: req.body.userId,
+            content: req.body.content,
+            imageUrl: req.file ? "http://localhost:3000/uploads/" + req.file.filename : '',
             likes: 0,
             usersLiked: [],
             created_at: Date.now()
@@ -39,6 +38,7 @@ exports.add = async (req, res) => {
         await post.save();
         res.status(200).send({ message: "Success" })
     } catch (err) {
+        console.log(err)
         res.status(500).send({ message: "Error", err: err });
     }
 }
@@ -75,14 +75,14 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
     const idPost = mongoose.Types.ObjectId(req.params.id);
     const userIdLogged = req.user._id;
-
     try {
-        let postData = await Post.findById(idPost).select('userId, imageUrl');
+        let postData = await Post.findById(idPost).select('userId imageUrl');
+        console.log(postData)
         if (postData.userId === userIdLogged || postData.role === 1) {
             if (postData != undefined) {
-                let currentImgName = postData.imageUrl.replace('http://localhost:3000/uploads/', '');
+                let currentImgName = postData.imageUrl.replace('http://localhost:3001/uploads/', '');
                 try {
-                    fs.unlinkSync('./uploads/' + currentImgName);
+                    fs.unlinkSync(currentImgName);
                 } catch (err) {
                     console.log(err);
                 }

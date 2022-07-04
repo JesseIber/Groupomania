@@ -9,7 +9,7 @@ import Header from './components/Header'
 
 function App() {
   const [cookies] = useCookies()
-  const [user, setUser] = useState(cookies.token ? { token: cookies.token } : null)
+  const [user, setUser] = useState(cookies.user ? { user: cookies.user } : null)
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <Header />
