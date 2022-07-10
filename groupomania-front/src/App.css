@@ -2,6 +2,7 @@
     --primary: #FD2D01;
     --secondary: #FFD7D7;
     --terciary: #4E5166;
+    --gray: #6c757d;
 }
 
 * {
@@ -16,6 +17,11 @@ body,
     width: 100%;
     height: 100vh;
     font-family: 'Lato';
+}
+
+#root{
+    display: flex;
+    flex-direction: row;
 }
 
 .p{
@@ -36,12 +42,11 @@ body,
     height: 100%;
 }
 
-.post_container{
+.main_container{
     display: flex;
     flex-direction: column;
-    padding-right: 30em;
-    padding-left: 30em;
-    margin-top: 2em;
+    flex: 2;
+    padding: 2em;
 }
 
 .w-500 {
@@ -62,6 +67,69 @@ body,
     justify-content: center;
 }
 
+.card{
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
+    padding: 1em;
+}
+
+.card__header{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.card__preview{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.card__preview > img {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card__preview::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgb(0,0,0);
+background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,252,252,0) 37%, rgba(227,227,227,0) 100%);
+}
+
+.card__deleteAttachment{
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 22px;
+    color: var(--terciary);
+}
+
+.card__header > * {
+    font-size: 22px;
+    color: var(--gray);
+}
+
+.card__content{
+    margin-top: 1em;
+}
+
+.card__action{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-top: 1em;
+}
+
 .card-logo {
     display: flex;
     align-items: center;
@@ -80,6 +148,23 @@ body,
     margin-bottom: 1em;
     display: flex;
     flex-direction: column;
+}
+
+.form_inputPost{
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, .2);
+    font-family: 'Lato';
+    font-size: 18px;
+    height: 2.5em;
+    margin: 0.5em 0;
+    padding: 1em 0.5em;
+}
+
+.form_inputPost:focus{
+    outline: none;
+    border-bottom-color: var(--primary);
+    transition: .5s
 }
 
 .form-input {
@@ -103,26 +188,6 @@ body,
     margin-bottom: 6px;
 }
 
-.form_textarea{
-    width: 100%;
-    min-width: 100%;
-    min-height: 150px;
-    border: 1px solid rgba(0, 0, 0, .2);
-    font-family: 'Lato';
-    font-size: 18px;
-    border-radius: 5px;
-    height: 2.5em;
-    margin: 0.5em 0;
-    padding: 1em 0.5em;
-    transition: .3s;
-    border-radius: 5px;
-}
-
-.form_textarea:focus{
-    outline: none;
-    box-shadow: 0 0 0 0.25rem rgb(253 45 1 / 25%);
-}
-
 .form_inputfile{
     width: 0.1px;
 	height: 0.1px;
@@ -134,13 +199,10 @@ body,
 }
 
 .form_inputfile + label {
-    border-radius: 5px;
-    padding: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    color: white;
-    background-color: var(--terciary);
+    color: var(--terciary);
 }
 
 .btn-group-inline {
@@ -212,6 +274,10 @@ body,
 
 .mb-5{
     margin-bottom: 1.25em;
+}
+
+.p-2{
+    padding: .5em;
 }
 
 .flex-1{
@@ -297,10 +363,32 @@ body,
     margin-bottom: 15px;
 }
 
-.postCard_container:first-of-type{
-    margin-top: 0;
+
+.postCard{
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
 }
-.postCard_container{
+
+.postCard__content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.postCard__image{
+    border-radius: 5px;
+    margin-left: 1em;
+}
+
+.postCard__image>img{
+    border-radius: 5px;
+}
+
+/* .postCard_container:first-of-type{
+    margin-top: 0;
+} */
+/* .postCard_container{
     width: 100%;
     display: flex;
     margin-top: 2em;
@@ -357,7 +445,7 @@ body,
 .thumbAction:hover{
     color: var(--primary);
     transition: .2s;
-}
+} */
 
 @keyframes fadeIn {
     from{

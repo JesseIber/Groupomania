@@ -1,19 +1,35 @@
-import { useState } from 'react'
+import axios from 'axios'
 import { useEffect } from 'react'
+import { useState } from 'react'
 import { useContext } from 'react'
 import UserContext from '../../contexts/UserContext'
-import { getPosts } from '../../services/posts'
 import PostCard from '../PostCard'
 
 export default function Posts() {
-    const userValues = useContext(UserContext)['user']
-    const [posts, setPosts] = useState([])
+    const { user } = useContext(UserContext)
+    const [data, setData] = useState([])
     useEffect(() => {
-        getPosts(userValues.user, setPosts)
+        const fetchPost = async () => {
+            try {
+                const { data: response } = await axios.get(
+                    `${process.env.REACT_APP_API_URL}/posts`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`,
+                        },
+                    }
+                )
+                setData(response)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchPost()
     }, [])
+
     return (
         <>
-            {posts.map((post) => (
+            {data.map((post) => (
                 <PostCard post={post} key={post._id} />
             ))}
         </>

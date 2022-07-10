@@ -20,10 +20,14 @@ export default function Header() {
 
     return (
         <div className="nav">
-            <img className="nav__logo" src={logo} width="170" />
-            <button className="btn btn-primary" onClick={handleLogout}>
-                Déconnexion
-            </button>
+            <div className="nav__logo">
+                <img className="nav__logo" src={logo} width="150" />
+            </div>
+            <div className="nav__logout">
+                <button className="btn btn-primary" onClick={handleLogout}>
+                    Déconnexion
+                </button>
+            </div>
         </div>
     )
 }

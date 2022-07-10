@@ -59,10 +59,7 @@ export default function Login() {
             })
             .then((data) => {
                 setCookie('user', data)
-                setUser({
-                    userId: data.userId,
-                    token: data.token,
-                })
+                setUser(data)
                 navigate('/')
             })
             .catch((err) => {

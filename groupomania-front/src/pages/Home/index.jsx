@@ -6,12 +6,11 @@ import Posts from '../../components/Posts'
 
 export default function Home() {
     const { user } = useContext(UserContext)
-
     if (!user) {
         return <Navigate to={'/login'} replace />
     }
     return (
-        <div className="post_container">
+        <div className="main_container">
             <WritePost />
             <Posts />
         </div>

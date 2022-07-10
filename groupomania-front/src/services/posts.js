@@ -1,17 +1,16 @@
 import axios from 'axios'
 
-export const getPosts = (user, setPosts) => {
-    axios.get(`${process.env.REACT_APP_API_URL}/posts`, {
+
+export async function getPosts(user) {
+    console.log(user.token)
+    const response = axios.get(`${process.env.REACT_APP_API_URL}/posts`, {
         headers: {
-            'Authorization': `Bearer ${user.token}`
+            Authorization: `Bearer ${user.token}`
         }
+    }).catch(err => {
+        console.log(err)
     })
-        .then(res => {
-            return setPosts(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
+    return response.data
 }
 
 export const createPost = (user, post) => {
@@ -29,7 +28,7 @@ export const createPost = (user, post) => {
 }
 
 export const updatePost = (userToken, userId, postId) => {
-    fetch(`${process.env.REACT_APP_API_URL}/posts/${postId}`, {
+    fetch(`${process.env.REACT_APP_API_URL} / posts / ${postId}`, {
         method: 'POST',
         mode: 'cors',
         headers: { 'Authorization': `Bearer ${userToken}` },
@@ -41,7 +40,7 @@ export const updatePost = (userToken, userId, postId) => {
 }
 
 export const deletePost = (userToken, postId) => {
-    fetch(`${process.env.REACT_APP_API_URL}/posts/${postId}`, {
+    fetch(`${process.env.REACT_APP_API_URL} / posts / ${postId}`, {
         method: 'DELETE',
         mode: 'cors',
         headers: { 'Authorization': `Bearer ${userToken}` },

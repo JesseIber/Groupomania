@@ -1,9 +1,22 @@
 .nav{
     display: flex;
-    flex-direction: row;
+    flex: 1;
+    flex-direction: column;
     justify-content: space-between;
-    width: 100%;
-    padding: 1.5em;
+    max-width: 200px;
     background-color: #FFD7D7;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+}
+
+.nav__logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.nav__logout{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
 }
