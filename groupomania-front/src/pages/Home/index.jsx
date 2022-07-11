@@ -3,6 +3,7 @@ import UserContext from '../../contexts/UserContext'
 import { Navigate } from 'react-router-dom'
 import WritePost from '../../components/WritePost'
 import Posts from '../../components/Posts'
+import { useState } from 'react'
 
 export default function Home() {
     const { user } = useContext(UserContext)
@@ -12,7 +13,9 @@ export default function Home() {
     return (
         <div className="main_container">
             <WritePost />
-            <Posts />
+            <div className="post__container">
+                <Posts />
+            </div>
         </div>
     )
 }

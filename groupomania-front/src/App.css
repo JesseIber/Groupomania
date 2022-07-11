@@ -22,6 +22,8 @@ body,
 #root{
     display: flex;
     flex-direction: row;
+    max-height: 100%;
+    overflow: hidden;
 }
 
 .p{
@@ -36,10 +38,15 @@ body,
     color: var(--terciary);
 }
 
+.text-gray{
+    color: var(--gray)
+}
+
 .container {
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
 }
 
 .main_container{
@@ -113,13 +120,9 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     color: var(--terciary);
 }
 
-.card__header > * {
+.card__header > *,.postCard__header>* {
     font-size: 22px;
     color: var(--gray);
-}
-
-.card__content{
-    margin-top: 1em;
 }
 
 .card__action{
@@ -209,6 +212,7 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     margin-top: 1em;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .btn {
@@ -254,6 +258,12 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     background-color: var(--terciary);
 }
 
+.post__container{
+    padding: 0 1em 1em 1em;
+    height: 100%;
+    overflow-y: auto;
+}
+
 .post_action{
     width: 100%;
     justify-content: flex-end;
@@ -278,6 +288,14 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
 
 .p-2{
     padding: .5em;
+}
+
+.mt-5{
+    margin-top: 1em;
+}
+
+.mb-5{
+    margin-bottom: 1em;
 }
 
 .flex-1{
@@ -371,13 +389,27 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     flex-direction: row;
 }
 
-.postCard__content{
-    width: 100%;
+
+.postCard__mainContent{
     display: flex;
     flex-direction: column;
+    width: 100%;
+}
+.postCard__header{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+.postCard__text{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1em;
 }
 .postCard__image{
-    border-radius: 5px;
+    border-radius: 2.5px;
     margin-left: 1em;
 }
 
@@ -385,67 +417,72 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     border-radius: 5px;
 }
 
-/* .postCard_container:first-of-type{
-    margin-top: 0;
-} */
-/* .postCard_container{
-    width: 100%;
+.icon__toggleMenu{
+    position: relative;
     display: flex;
-    margin-top: 2em;
-    flex-direction: column;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    margin-left: 10px;
+    width: 35px;
+    height: 35px;
+    transition: 2s ease-in-out;
+}
+.icon__toggleMenu:hover:before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
+.postCard__submenu{
+    position: absolute;
+    border-radius: 5px;
+    right: 35px;
+    top: 0px;
+    background-color: white;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
 
-.postCard_header{
+.postCard__submenu__li{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.postCard__submenu__li:hover{
+    background-color: rgba(0, 0,0,.1)
+}
+
+.postCard__submenu__btn{
+    cursor: pointer;
+    background-color: transparent;
     font-family: 'Lato';
-    font-weight: bold;
-    padding: 15px;
+    font-size: 18px;
+    padding: 1em 2em;
+    border: none;
+
+}
+
+.postCard__submenu > ul {
+    list-style: none;
+}
+
+.hide {
+    display: none;
+}
+
+.split_image{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--secondary);
+    justify-content: space-between;    
 }
-
-.postCard_content{
-    padding: 15px;
-}
-
-.postCard_groupAction{
-    display: flex;
-    color: white;
-    border-radius: 5px;
-    align-items: center;
-    text-align: center;
-}
-
-.postCard_action{
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-size: 1.5em;
-    flex: 1;
-    color: var(--terciary);
-    border-top: 1px solid var(--secondary);
-}
-
-.postCard_action:first-child{
-    border-bottom-left-radius: 5px;
-}
-.postCard_action:last-child{
-    border-bottom-right-radius: 5px;
-}
-
-.thumbAction{
-    cursor: pointer;
-}
-
-.thumbAction:hover{
-    color: var(--primary);
-    transition: .2s;
-} */
 
 @keyframes fadeIn {
     from{

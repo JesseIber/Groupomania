@@ -36,6 +36,7 @@ exports.login = async (req, res) => {
             if (match) {
                 res.status(200).json({
                     userId: user._id,
+                    email: user.email,
                     role: user.role,
                     token: accessToken
                 });

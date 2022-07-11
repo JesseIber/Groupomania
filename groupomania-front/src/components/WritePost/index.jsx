@@ -44,6 +44,7 @@ export default function WritePost() {
         } else {
             const fd = new FormData()
             fd.append('userId', userValues.user.userId)
+            fd.append('author', userValues.user.email)
             fd.append('content', content)
             fd.append('image', selectedFile)
             createPost(userValues.user, fd)

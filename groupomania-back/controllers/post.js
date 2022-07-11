@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 
 exports.getPosts = async (req, res) => {
-    const posts = await Post.find();
+    const posts = await Post.find().sort({ created_at: 'desc' });
     if (posts != null) {
         return res.status(200).send(posts);
     } else {
@@ -29,8 +29,9 @@ exports.add = async (req, res) => {
     try {
         const post = new Post({
             userId: req.body.userId,
+            author: req.body.author,
             content: req.body.content,
-            imageUrl: req.file ? "http://localhost:3000/uploads/" + req.file.filename : '',
+            imageUrl: req.file ? "http://localhost:3001/uploads/" + req.file.filename : '',
             likes: 0,
             usersLiked: [],
             created_at: Date.now()
@@ -47,15 +48,15 @@ exports.update = async (req, res) => {
     try {
         const idPost = mongoose.Types.ObjectId(req.params.id);
         const userIdLogged = req.user._id;
-        const postData = await Post.findById(idPost).select('userId, imageUrl');
+        const postData = await Post.findById(idPost).select('userId imageUrl');
 
         if (postData.userId === userIdLogged || postData.role === 1) {
             const post = { content: req.body.content };
             if (req.file != undefined) {
-                post.imageUrl = "http://localhost:3000/uploads/" + req.file.filename;
-                let currentImgName = postData.imageUrl.replace('http://localhost:3000/uploads/', '');
+                post.imageUrl = "http://localhost:3001/uploads/" + req.file.filename;
+                let currentImgName = postData.imageUrl.replace('http://localhost:3001/uploads/', './uploads/');
                 try {
-                    fs.unlinkSync('./uploads/' + currentImgName);
+                    fs.unlinkSync(currentImgName);
                 } catch (err) {
                     console.log(err);
                 }
@@ -77,10 +78,9 @@ exports.delete = async (req, res) => {
     const userIdLogged = req.user._id;
     try {
         let postData = await Post.findById(idPost).select('userId imageUrl');
-        console.log(postData)
         if (postData.userId === userIdLogged || postData.role === 1) {
-            if (postData != undefined) {
-                let currentImgName = postData.imageUrl.replace('http://localhost:3001/uploads/', '');
+            if (postData.imageUrl != '') {
+                let currentImgName = postData.imageUrl.replace('http://localhost:3001/uploads/', './uploads/');
                 try {
                     fs.unlinkSync(currentImgName);
                 } catch (err) {

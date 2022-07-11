@@ -8,6 +8,8 @@ import PostCard from '../PostCard'
 export default function Posts() {
     const { user } = useContext(UserContext)
     const [data, setData] = useState([])
+    const [value, setValue] = useState()
+
     useEffect(() => {
         const fetchPost = async () => {
             try {
@@ -25,12 +27,12 @@ export default function Posts() {
             }
         }
         fetchPost()
-    }, [])
+    }, [value])
 
     return (
         <>
             {data.map((post) => (
-                <PostCard post={post} key={post._id} />
+                <PostCard post={post} key={post._id} setValue={setValue} />
             ))}
         </>
     )
