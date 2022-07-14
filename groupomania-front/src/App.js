@@ -5,7 +5,7 @@ import { useState } from 'react'
 import UserContext from './contexts/UserContext'
 import { Route, Routes } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
-import Header from './components/Header'
+import Sidenav from './components/Sidenav'
 
 function App() {
   const [cookies] = useCookies()
@@ -14,7 +14,7 @@ function App() {
   // console.log('user from cookies : ', cookies.user)
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <Header />
+      <Sidenav />
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/' element={<Home />} />

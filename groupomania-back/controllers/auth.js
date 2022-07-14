@@ -1,6 +1,7 @@
 var { User } = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 exports.signup = (req, res) => {
     const email = req.body.signup_email;
@@ -48,5 +49,19 @@ exports.login = async (req, res) => {
         }
     } catch (err) {
         console.log(err);
+    }
+}
+
+exports.isAdmin = async (req, res) => {
+    const idUser = mongoose.Types.ObjectId(req.params.idUser);
+    const user = await User.findById(idUser).select('role')
+    if (user.role === 1) {
+        res.status(200).json({
+            isAdmin: true
+        })
+    } else {
+        res.status(200).json({
+            isAdmin: false
+        })
     }
 }

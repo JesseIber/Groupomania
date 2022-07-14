@@ -1,18 +1,5 @@
 import axios from 'axios'
 
-
-export async function getPosts(user) {
-    console.log(user.token)
-    const response = axios.get(`${process.env.REACT_APP_API_URL}/posts`, {
-        headers: {
-            Authorization: `Bearer ${user.token}`
-        }
-    }).catch(err => {
-        console.log(err)
-    })
-    return response.data
-}
-
 export const createPost = (user, post) => {
     axios
         .post(`${process.env.REACT_APP_API_URL}/posts`,
@@ -51,4 +38,33 @@ export const deletePost = (userToken, postId) => {
     }).catch((err) => {
         console.log(err)
     })
+}
+
+export const like = (userToken, userId, postId, isLiked) => {
+    axios
+        .post(`${process.env.REACT_APP_API_URL}/posts/${postId}/like`,
+            {
+                userId: userId,
+                like: isLiked
+            }, {
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+export const isAdmin = async (userId, userToken) => {
+    try {
+        const { data: res } = await axios
+            .get(`${process.env.REACT_APP_API_URL}/auth/isAdmin/${userId}`,
+                null, {
+                headers: {
+                    Authorization: `Bearer ${userToken}`,
+                },
+            })
+        return res
+    } catch (error) {
+        console.log(error)
+    }
 }

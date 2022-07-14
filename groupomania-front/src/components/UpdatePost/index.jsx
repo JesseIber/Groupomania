@@ -1,18 +1,15 @@
-import {
-    faPaperclip,
-    faToggleOff,
-    faXmark,
-} from '@fortawesome/free-solid-svg-icons'
+import { faPaperclip, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useContext, useEffect, useState } from 'react'
 import UserContext from '../../contexts/UserContext'
 import { updatePost } from '../../services/posts'
 
-export default function UpdatePost({ post, toggle, setValue }) {
+export default function UpdatePost({ post, toggle }) {
     const userValues = useContext(UserContext)
     const [selectedFileUpdate, setSelectedFileUpdate] = useState(null)
     const [previewUpdate, setPreviewUpdate] = useState()
     const [contentUpdate, setContentUpdate] = useState(null)
+    const [currentPict, setCurrentPict] = useState(post.imageUrl)
 
     useEffect(() => {
         if (!selectedFileUpdate) {
@@ -34,6 +31,10 @@ export default function UpdatePost({ post, toggle, setValue }) {
         document.getElementById('image').value = null
     }
 
+    const handleDeleteExistantFile = () => {
+        setCurrentPict(null)
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const fd = new FormData()
@@ -44,9 +45,12 @@ export default function UpdatePost({ post, toggle, setValue }) {
         } else {
             fd.append('content', contentUpdate)
         }
-        fd.append('image', selectedFileUpdate)
+        if (selectedFileUpdate !== null) {
+            fd.append('image', selectedFileUpdate)
+        } else if (currentPict === null) {
+            fd.append('image', -1)
+        }
         updatePost(userValues.user, fd, post._id)
-        setValue({})
         toggle()
     }
 
@@ -76,13 +80,18 @@ export default function UpdatePost({ post, toggle, setValue }) {
                     <FontAwesomeIcon icon={faPaperclip} />
                 </label>
                 <div className="split_image">
-                    {post.imageUrl && (
+                    {currentPict && (
                         <div className="last_image">
                             <p className="mt-5 mb-5 text-gray">
                                 Image d'origine :
                             </p>
                             <div className="card__preview">
-                                <img src={post.imageUrl} />
+                                <FontAwesomeIcon
+                                    icon={faXmark}
+                                    className="card__deleteAttachment"
+                                    onClick={handleDeleteExistantFile}
+                                />
+                                <img alt="" src={post.imageUrl} />
                             </div>
                         </div>
                     )}
@@ -97,7 +106,7 @@ export default function UpdatePost({ post, toggle, setValue }) {
                                     className="card__deleteAttachment"
                                     onClick={handleDeleteFile}
                                 />
-                                <img src={previewUpdate} />
+                                <img alt="" src={previewUpdate} />
                             </div>
                         </div>
                     )}

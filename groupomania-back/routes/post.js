@@ -9,6 +9,6 @@ router.get('/', jwtAuth.authenticateJWT, postController.getPosts);
 router.post('/', jwtAuth.authenticateJWT, multer, postController.add);
 router.put('/:id', jwtAuth.authenticateJWT, multer, postController.update);
 router.delete('/:id', jwtAuth.authenticateJWT, postController.delete);
-// router.post('/:id/like', jwtAuth.authenticateJWT, postController.like);
+router.post('/:id/like', jwtAuth.authenticateJWT, postController.like);
 
 module.exports = router;

@@ -57,7 +57,7 @@ body,
 }
 
 .w-500 {
-    width: 500px;
+    width: 500px!important;
 }
 
 .form-login {
@@ -274,6 +274,9 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     margin: 0;
 }
 
+.mr-1{
+    margin-right: .25em;
+}
 .mr-3{
     margin-right: .75em;
 }
@@ -284,6 +287,16 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
 
 .mb-5{
     margin-bottom: 1.25em;
+}
+
+.pr-5{
+    padding-right: 1em;
+}
+.pb-5{
+    padding-bottom: 1em;
+}
+.pl-5{
+    padding-left: 1em;
 }
 
 .p-2{
@@ -386,7 +399,7 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     margin-top: 30px;
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 
@@ -401,13 +414,23 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     justify-content: space-between;
 }
 
+.postCard__mainInfo{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 
 .postCard__text{
     width: 100%;
     display: flex;
-    justify-content: space-between;
     margin-top: 1em;
+    margin-bottom: 1em;
 }
+
+.postCard__text > p {
+    flex: 1;
+}
+
 .postCard__image{
     border-radius: 2.5px;
     margin-left: 1em;
@@ -474,6 +497,43 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     list-style: none;
 }
 
+.postCard__like{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1em;
+    border-top: 1px solid var(--secondary);
+}
+
+.postCard__like > span{
+    display: flex;
+    align-items: center;
+}
+
+.icon__like{
+    font-size: 24px;
+}
+
+.icon__like__isNotLiked{
+    color: var(--gray);
+    transition: .5s
+}
+
+.icon__like__isNotLiked:hover{
+    cursor: pointer;
+    color: var(--primary);
+}
+
+.icon__like__isLiked{
+    color: var(--primary);
+    transition: .5s
+}
+
+.icon__like__isLiked:hover{
+    cursor: pointer;
+    color: var(--gray);
+}
+
 .hide {
     display: none;
 }
@@ -483,6 +543,28 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     flex-direction: row;
     justify-content: space-between;    
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--secondary);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background: var(--primary);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+  }
+
 
 @keyframes fadeIn {
     from{

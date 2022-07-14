@@ -56,9 +56,20 @@ exports.update = async (req, res) => {
                 post.imageUrl = "http://localhost:3001/uploads/" + req.file.filename;
                 let currentImgName = postData.imageUrl.replace('http://localhost:3001/uploads/', './uploads/');
                 try {
-                    fs.unlinkSync(currentImgName);
+                    if (currentImgName != '') {
+                        fs.unlinkSync(currentImgName);
+                    }
                 } catch (err) {
                     console.log(err);
+                }
+            }
+            if (req.body.image) {
+                const currentImgName = postData.imageUrl.replace('http://localhost:3001/uploads/', './uploads/');
+                try {
+                    fs.unlinkSync(currentImgName);
+                    post.imageUrl = ''
+                } catch (error) {
+                    console.log(error)
                 }
             }
             Post.findByIdAndUpdate(idPost, post, null, (err, result) => {
@@ -78,7 +89,7 @@ exports.delete = async (req, res) => {
     const userIdLogged = req.user._id;
     try {
         let postData = await Post.findById(idPost).select('userId imageUrl');
-        if (postData.userId === userIdLogged || postData.role === 1) {
+        if (postData.userId === userIdLogged || req.user.role === 1) {
             if (postData.imageUrl != '') {
                 let currentImgName = postData.imageUrl.replace('http://localhost:3001/uploads/', './uploads/');
                 try {
@@ -99,35 +110,23 @@ exports.delete = async (req, res) => {
     }
 }
 
-// A modifier
+exports.like = async (req, res) => {
+    //si erreur sur l'id vérifier si userId ou idUser
+    const userId = req.body.userId
+    const isLiked = req.body.like
+    const post = await Post.findById(req.params.id)
+    const updatedFields = {}
+    updatedFields.usersLiked = post.usersLiked;
+    if (isLiked) {
+        updatedFields.likes = post.likes += 1;
+        updatedFields.usersLiked.push(userId);
+    } else {
+        updatedFields.likes = post.likes -= 1;
+        updatedFields.usersLiked.splice(updatedFields.usersLiked.indexOf(userId));
+    }
 
-// exports.like = async (req, res) => {
-//     const userId = req.body.userId;
-//     const likeValue = req.body.like;
-//     const post = await Post.findById(req.params.id);
-//     const updatedFields = {}
-//     switch (likeValue) {
-//         case 1:
-//             updatedFields.likes = post.likes += 1;
-//             updatedFields.usersLiked = post.usersLiked;
-//             updatedFields.usersLiked.push(userId);
-//             break;
-//         case 0:
-//             updatedFields.usersLiked = post.usersLiked;
-//             if(updatedFields.usersLiked.includes(userId)){
-//                updatedFields.likes = post.likes -= 1;
-//                updatedFields.usersLiked.splice(updatedFields.usersLiked.indexOf(userId));
-//             } else {
-//                 updatedFields.usersDisliked = post.usersDisliked;
-//                 updatedFields.dislikes = post.dislikes -= 1;
-//                 updatedFields.usersDisliked.splice(updatedFields.usersDisliked.indexOf(userId));
-//             }
-//             break;
-//         default:
-//             break;
-//     }
-//     Sauce.findByIdAndUpdate(req.params.id, updatedFields, null, (err, result) => {
-//         if(err) return res.status(500).send(err);
-//         return res.status(200).send(result);
-//     })
-// }
+    Post.findByIdAndUpdate(req.params.id, updatedFields, null, (err, result) => {
+        if (err) return res.status(500).send(err);
+        return res.status(200).send(result);
+    })
+}
