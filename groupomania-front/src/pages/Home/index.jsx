@@ -7,6 +7,7 @@ import { useState } from 'react'
 
 export default function Home() {
     const { user } = useContext(UserContext)
+    document.title = 'Groupomania'
     if (!user) {
         return <Navigate to={'/login'} replace />
     }

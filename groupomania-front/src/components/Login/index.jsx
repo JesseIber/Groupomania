@@ -35,6 +35,7 @@ export default function Login() {
     const navigate = useNavigate()
 
     useEffect(() => {
+        document.title = 'Groupomania - Login'
         if (user !== null) {
             navigate('/')
         }
