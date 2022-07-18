@@ -50,7 +50,7 @@ exports.update = async (req, res) => {
         const userIdLogged = req.user._id;
         const postData = await Post.findById(idPost).select('userId imageUrl');
 
-        if (postData.userId === userIdLogged || postData.role === 1) {
+        if (postData.userId === userIdLogged || req.user.role === 1) {
             const post = { content: req.body.content };
             if (req.file != undefined) {
                 post.imageUrl = "http://localhost:3001/uploads/" + req.file.filename;
