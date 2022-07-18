@@ -79,9 +79,9 @@ export default function Login() {
                 onSubmit={(credentials) => handleSubmit(credentials)}
             >
                 <Form className="form-login">
-                    <div className="card w-500">
+                    <div className="card login">
                         <div className="card-logo">
-                            <img src={logo} width="300" />
+                            <img alt="" src={logo} />
                         </div>
                         {error && <div className="card-error">{error}</div>}
                         <div className="card-body">

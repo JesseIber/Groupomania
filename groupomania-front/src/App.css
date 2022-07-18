@@ -74,8 +74,11 @@ body,
     justify-content: center;
 }
 
+.login{
+    min-width: 500px;
+}
+
 .card{
-    width: 100%;
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
     padding: 1em;
@@ -138,6 +141,10 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     align-items: center;
     justify-content: center;
     margin-bottom: 2em;
+}
+
+.card-logo > img {
+    width: 300px;
 }
 
 .card-error {
@@ -268,6 +275,13 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     width: 100%;
     justify-content: flex-end;
     align-items: center;
+}
+
+.form {
+    margin-bottom: 1em;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-bottom: 1em;
 }
 
 .m-0{
@@ -549,11 +563,6 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
     width: 10px;
   }
   
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: var(--secondary);
-  }
-  
   /* Handle */
   ::-webkit-scrollbar-thumb {
     cursor: pointer;
@@ -564,7 +573,6 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
   ::-webkit-scrollbar-thumb:hover {
     background: var(--primary);
   }
-
 
 @keyframes fadeIn {
     from{
@@ -597,6 +605,83 @@ background: linear-gradient(180deg, rgba(0,0,0,0.0984768907563025) 0%, rgba(252,
         stroke-dashoffset: -124;
     }
 }
+
+
+@media screen and (max-width: 768px){
+    #root{
+        flex-direction: column;
+    }
+    .main_container{
+        overflow-y: scroll;
+    }
+    .login{
+        min-width: auto;
+    }
+    .main_container{
+        padding: 0;
+    }
+    .card {
+        padding: .5em 1em;
+    }
+    .card__preview{
+        width: 100%;
+    }
+    .card-logo > img {
+        width: 200px;
+    }
+    .postCard__header > *{
+        font-size: 16px;
+    }
+    .icon__toggleMenu {
+        margin-left: 0;
+    }
+    .postCard__mainInfo{
+        align-items: center;
+    }
+    .postCard__image {
+        margin-left: 0;
+    }
+    .postCard__image > img {
+        width: 100%;
+    }
+    .postCard__text{
+        word-break: break-word;
+        flex-direction: column-reverse;
+    }
+    .postCard__like > p{
+        font-size: 16px;
+    }
+    .icon__like{
+        font-size: 18px;
+    }
+    .btn{
+        font-size: 16px;
+    }
+    .modal-container{
+        max-height: 100%;
+    }
+    .modal-content{
+        padding: 1em;
+        overflow-y: scroll;
+    }
+    .modal-title > h1{
+        font-size: 26px;
+    }
+    .form-label{
+        font-size: 16px;
+    }
+    .justify-right{
+        justify-content: space-between;
+    }
+    .split_image{
+        flex-direction: column;
+        align-items: center;
+    }
+    .form{
+        margin-top: 1em;
+    }
+}
+
 
 @font-face {
     font-family: 'Lato';

@@ -101,26 +101,28 @@ export default function PostCard({ post, isAdminValue }) {
                     )}
                 </div>
                 <div className="postCard__like">
-                    <span>
-                        {isLiked ? (
-                            <>
-                                <FontAwesomeIcon
-                                    icon={faHeart}
-                                    className="icon__like icon__like__isLiked mr-1"
-                                    onClick={() => handleLike(0)}
-                                />
-                            </>
-                        ) : (
-                            <>
-                                <FontAwesomeIcon
-                                    icon={faHeart}
-                                    className="icon__like icon__like__isNotLiked mr-1"
-                                    onClick={() => handleLike(1)}
-                                />
-                            </>
-                        )}
-                        ({post.likes}) Utilisateur(s) aime ce post
-                    </span>
+                    <p>
+                        <span>
+                            {isLiked ? (
+                                <>
+                                    <FontAwesomeIcon
+                                        icon={faHeart}
+                                        className="icon__like icon__like__isLiked mr-1"
+                                        onClick={() => handleLike(0)}
+                                    />
+                                </>
+                            ) : (
+                                <>
+                                    <FontAwesomeIcon
+                                        icon={faHeart}
+                                        className="icon__like icon__like__isNotLiked mr-1"
+                                        onClick={() => handleLike(1)}
+                                    />
+                                </>
+                            )}
+                            ({post.likes}) Utilisateur(s) aime ce post
+                        </span>
+                    </p>
                 </div>
             </div>
             <Modal

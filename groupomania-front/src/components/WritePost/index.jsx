@@ -53,7 +53,7 @@ export default function WritePost() {
 
     return (
         <>
-            <form className="mb-5 pr-5 pl-5 pb-5" onSubmit={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit}>
                 <div className="card">
                     <div className="card__header p-2">
                         <p>Ajouter un nouveau post</p>
